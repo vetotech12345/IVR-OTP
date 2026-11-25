@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OTP Console</title>
+  <link rel="stylesheet" href="console.css">
+</head>
+<body>
+  <div id="login" class="login" hidden>
+    <form id="login-form" class="card login-card">
+      <h1>OTP Console</h1>
+      <p class="muted">Sign in with the service's admin token (<code>OTP_ADMIN_TOKEN</code>).</p>
+      <label for="token">Admin token</label>
+      <input id="token" type="password" autocomplete="off" required>
+      <p id="login-error" class="error" hidden></p>
+      <button class="btn primary" type="submit">Sign in</button>
+    </form>
+  </div>
+
+  <div id="shell" class="shell" hidden>
+    <aside class="side" id="side">
+      <div class="brand">OTP<span>Console</span></div>
+      <nav>
+        <a href="#/overview" data-nav="overview">Overview</a>
+        <a href="#/apps" data-nav="apps">Applications</a>
+        <a href="#/log" data-nav="log">OTP log</a>
+      </nav>
+      <button class="btn ghost signout" id="signout" type="button">Sign out</button>
+    </aside>
+    <div class="main-wrap">
+      <header class="top">
+        <button class="btn ghost menu" id="menu" type="button" aria-label="Menu">☰</button>
+        <span class="muted small">Codes are never stored or shown - only what happened to them.</span>
+      </header>
+      <main id="view" class="view"></main>
+    </div>
+  </div>
+
+  <div id="modal" class="modal" hidden>
+    <div class="card modal-card" role="dialog" aria-modal="true">
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="console.js"></script>
+</body>
+</html>

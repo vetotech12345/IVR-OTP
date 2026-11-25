@@ -1,0 +1,25 @@
+# /etc/systemd/system/otp-service.service
+# Starts the OTP service at boot and restarts it if it stops.
+[Unit]
+Description=OTP service
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+User=otp
+Group=otp
+WorkingDirectory=/opt/otp-service
+# Secrets live here, readable only by root and the otp user (chmod 640).
+EnvironmentFile=/etc/otp-service/otp.env
+ExecStart=/usr/bin/java -Xms128m -Xmx384m -jar /opt/otp-service/otp-service.jar
+Restart=on-failure
+RestartSec=5
+# Hardening: the service needs nothing from the rest of the machine.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/otp-service
+
+[Install]
+WantedBy=multi-user.target
